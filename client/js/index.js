@@ -3,6 +3,19 @@ const Dapp = {
     hospitalAddress: undefined,
     patientAddress: undefined,
 
+    createNewAccount: function() {
+      Dapp.web3.personal.newAccount(
+        prompt("Please enter your password"),
+        function(error, address) {
+          if (error) {
+            alert(error);
+          } else {
+            Dapp.setHospitalAddress(address);
+            $(".nav-tabs .nav-link").removeClass("disabled");
+          }
+        }
+      );
+    },
     importHospitalAddress: function() {
         var address = prompt("Please enter address", "0x9ffe008c97c3cf72d373cc1f19544ef04a243a15");
         if (!Dapp.web3.isAddress(address)) {
